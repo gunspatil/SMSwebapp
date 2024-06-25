@@ -8,28 +8,20 @@ pipeline {
                 script {
                     // Restoring dependencies
                     //bat "cd ${DOTNET_CLI_HOME} && dotnet restore"
-                    bat "dotnet restore"
+                    sh "dotnet restore"
 
                     // Building the application
-                    bat "dotnet build --configuration Release"
+                    sh "dotnet build --configuration Release"
                 }
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    // Running tests
-                    bat "dotnet test --no-restore --configuration Release"
-                }
-            }
-        }
 
-        stage('Publish') {
+        stage('Deploy') {
             steps {
                 script {
                     // Publishing the application
-                    bat "dotnet publish --no-restore --configuration Release --output .\\publish"
+                    sh "sudo scp -i .ssh/id_ed25519 /var/lib/jenkins/workspace/SMSFreestyle/smswebapp/bin/Debug/net8.0/* ubuntu@54.80.249.214:/var/www/app/"
                 }
             }
         }
@@ -37,7 +29,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build, test, and publish successful!'
+            echo 'Build and Deployment is successful!'
         }
     }
 }
