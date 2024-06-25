@@ -20,8 +20,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Publishing the application
-                    sh "sudo scp -i .ssh/id_ed25519 /var/lib/jenkins/workspace/SMSFreestyle/smswebapp/bin/Debug/net8.0/* ubuntu@54.80.249.214:/var/www/app/"
+                    sshagent(['SSHcred'])
+                    {
+                    sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/smswebapp/bin/Debug/net8.0/* ubuntu@54.80.249.214:/var/www/app/"
+                    }
                 }
             }
         }
