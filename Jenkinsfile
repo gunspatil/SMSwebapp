@@ -10,6 +10,8 @@ pipeline {
                     //bat "cd ${DOTNET_CLI_HOME} && dotnet restore"
                     sh "dotnet restore"
 
+                    sh "dotnet clean"
+
                     // Building the application
                     sh "dotnet build --configuration Release"
                 }
@@ -30,7 +32,7 @@ pipeline {
                 script {
                     sshagent(['SSHcred'])
                     {
-                    sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/smswebapp/bin/Debug/net8.0/* ubuntu@54.80.249.214:/var/www/app/"
+                    sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/.publish/* ubuntu@54.80.249.214:/var/www/app/"
                     }
                 }
             }
