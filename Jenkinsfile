@@ -32,7 +32,7 @@ pipeline {
                 script {
                     sshagent(['SSHcred'])
                     {
-                    sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/smswebapp/bin/Debug/net8.0/* ubuntu@52.201.146.173:/var/www/app/"
+                    sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/.publish/* ubuntu@52.201.146.173:/var/www/app/"
                     }
                 }
             }
