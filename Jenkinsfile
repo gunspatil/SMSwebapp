@@ -44,9 +44,7 @@ pipeline {
                 script {
                     sshagent(['SSHcred']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@52.201.146.173 << EOF
-                        sudo systemctl restart kestrel-app.service
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ubuntu@52.201.146.173 'sudo systemctl restart kestrel-app.service'
                         """
                     }
                 }
