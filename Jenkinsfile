@@ -33,6 +33,7 @@ pipeline {
                     sshagent(['SSHcred'])
                     {
                     sh "scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Dotnetproject/.publish/* ubuntu@52.201.146.173:/var/www/app/"
+                    sh "sudo systemctl restart kestrel-app.service"
                     }
                 }
             }
