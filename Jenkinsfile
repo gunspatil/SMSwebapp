@@ -42,14 +42,12 @@ pipeline {
         stage('Service restart') {
             steps {
                 script {
-                    sshagent(['SSHcred'])
-                    {
-                    sh """
+                    sshagent(['SSHcred']) {
+                        sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@52.201.146.173 << EOF
                         sudo systemctl restart kestrel-app.service
                         EOF
                         """
-                    
                     }
                 }
             }
